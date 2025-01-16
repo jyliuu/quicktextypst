@@ -19,7 +19,7 @@ if get(g:, 'quicktex_always_latex', 1)
 endif
 
 if !exists('g:quicktex_math_filetypes')
-   let g:quicktex_math_filetypes = ['tex', 'pandoc', 'markdown']
+   let g:quicktex_math_filetypes = ['typst', 'tex', 'pandoc', 'markdown']
 endif
 
 function! AssignExpander()
