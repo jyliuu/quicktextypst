@@ -20,6 +20,19 @@ endif
 
 " Quicktex {{{
 
+
+function! QuickModifier(modifier)
+  " Search backward for a space
+  " Check if the character after the space is $
+  if search('[ \$]', 'b', line('.'))
+    execute "normal! a" . a:modifier . "(\<ESC>f i)"
+  else
+   " No space found, move to the beginning of the line and insert the modifier
+   execute "normal! 0i" . a:modifier . "(\<ESC>f i)"
+  endif
+endfunction
+
+
 let g:quicktex_typst = {
     \' '   : "\<ESC>:call search('<+.*+>')\<CR>\"_c/+>/e\<CR>",
     \'mf'  : '$<+++>$ <++>',
@@ -104,11 +117,11 @@ let g:quicktex_math_typst = {
     \'dot'   : 'dot ',
     \'mult'  : 'times ',
     \'partial': 'diff ',
-    \'exp'   : "^(<+++>) <++>",
-    \'pow'   : "^(<+++>) <++>",
-    \'sq'    : "^2 ",
-    \'cubed' : "^3 ",
-    \'inv'   : "^(-1) ",
+    \'exp'   : "\<BS>^(<+++>) <++>",
+    \'pow'   : "\<BS>^(<+++>) <++>",
+    \'sq'    : "\<BS>^2 ",
+    \'cubed' : "\<BS>^3 ",
+    \'inv'   : "\<BS>^(-1) ",
     \'cross' : 'times ',
 \'Section: Functions' : 'COMMENT',
     \'to'     : 'arrow ',
@@ -146,9 +159,9 @@ let g:quicktex_math_typst = {
     \'ud'     : "\<BS>_(<+++>)^(<++>) <++>",
     \'text'   : '"<+++>" <++>',
     \'bol'    : "bold(<+++>) <++>",
-    \'bar'    : "\<ESC>F aoverline(\<ESC>f i) ",
-    \'tild'   : "\<ESC>F atilde(\<ESC>f i) ",
-    \'hat'    : "\<ESC>F ahat(\<ESC>f i) ",
+    \'bar'    : "\<ESC>:call QuickModifier('bar')\<CR>",
+    \'tild'   : "\<ESC>:call QuickModifier('tilde')\<CR>",
+    \'hat'    : "\<ESC>:call QuickModifier('hat')\<CR>",
     \'star'   : "\<BS>^* ",
 \}
 " }}}
